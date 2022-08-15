@@ -1,20 +1,22 @@
 package com.example.movieappdaggerhilt.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.movieappdaggerhilt.models.Movies
+import android.app.Application
+import android.widget.Toast
+import androidx.lifecycle.*
 import com.example.movieappdaggerhilt.models.MoviesItem
 import com.example.movieappdaggerhilt.repository.MovieRepository
+import com.example.movieappdaggerhilt.view.MainActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
+    application: Application,
     private val repository: MovieRepository
-):ViewModel() {
+):AndroidViewModel(application) {
 
     private val _response = MutableLiveData<List<MoviesItem>>()
     val responseMovie: LiveData<List<MoviesItem>>
@@ -24,12 +26,12 @@ class MovieViewModel @Inject constructor(
         getAllMovies()
     }
 
-    private fun getAllMovies()= viewModelScope.launch {
+    private fun getAllMovies()= CoroutineScope(Dispatchers.IO).launch {
         repository.getMovie().let {response ->
             if(response.isSuccessful)
-                _response.value
+                _response.postValue(response.body())
             else{
-
+                Toast.makeText(getApplication(),"Error: ${response.code()}",Toast.LENGTH_LONG).show()
             }
         }
     }
