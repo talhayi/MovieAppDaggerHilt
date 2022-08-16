@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.movieappdaggerhilt.models.MoviesItem
 import com.example.movieappdaggerhilt.repository.MovieRepository
-import com.example.movieappdaggerhilt.view.MainActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

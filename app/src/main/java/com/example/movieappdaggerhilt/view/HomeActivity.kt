@@ -10,21 +10,38 @@ import com.example.movieappdaggerhilt.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel : MovieViewModel by viewModels()
-    private lateinit var movieAdapter : MovieAdapter
+    private val viewModel: MovieViewModel by viewModels()
+    private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         movieAdapter = MovieAdapter()
-        binding.recylerView.apply {
+        binding.rvMovie.apply {
             adapter = movieAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.HORIZONTAL,false)
+            layoutManager =
+                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
+
+        binding.rvEpisodes.apply {
+            adapter = movieAdapter
+            layoutManager =
+                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
+
+        binding.rvRecentlyAdded.apply {
+            adapter = movieAdapter
+            layoutManager =
+                LinearLayoutManager(this@HomeActivity, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
         }
 
