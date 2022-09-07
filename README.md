@@ -1,4 +1,4 @@
-- #### This project is written with Kotlin. MVVM architecture is used.
+- #### MVVM architecture is used.
 - #### I developed this movies application using the API offered at tvmaze. When we open the application, movies are listed on the HomePage. There are three categories: movies, popular and up coming.
 
 
